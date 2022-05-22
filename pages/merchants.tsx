@@ -38,17 +38,17 @@ const Merchants: NextPage = (props) => {
     return (localStorage.getItem('darkMode') || window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
   }
   const [darkMode, setDarkMode] = useLocalStorage<boolean>('darkMode', defaultTheme)
-  useEffect(()=> {
+  useEffect(() => {
     //Prevents FoUC (Flash of Unstylized Content) by not refreshing on first mount
-    if (!isMounted.current){ isMounted.current = true; return }
+    if (!isMounted.current) { isMounted.current = true; return }
 
     //Toggle Daisy UI colors (e.g. bg-base-###)
-    document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light') 
-    
+    document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light')
+
     //Toggle standard Tailwind colors (e.g. bg-sky-800)
-    darkMode 
-      ?  document.documentElement.classList.add("dark")
-      :  document.documentElement.classList.remove("dark")
+    darkMode
+      ? document.documentElement.classList.add("dark")
+      : document.documentElement.classList.remove("dark")
   }, [darkMode])
 
   const [currDate, setCurrDate] = useState<DateTime>(DateTime.now())
@@ -111,8 +111,27 @@ const Merchants: NextPage = (props) => {
     }
   }, [])
 
+  const [useNewInsertMethod, setUseNewInsertMethod] = useState(true)
+  const toggleInsertMethod = (() => {
+    useNewInsertMethod ? setUseNewInsertMethod(false) : setUseNewInsertMethod(true)
+    setMerchantAPIData({})
+  })
   useEffect(() => {
-    setMerchantAPIData({ ...merchantAPIData, ...apiData })
+    if (useNewInsertMethod) {
+      Object.values(apiData).forEach((apiDataElement) => {
+        for (let i = 0; i < Object.values(merchantAPIData).length; i++) {
+          if (apiDataElement.name === merchantAPIData[i].name) {
+            merchantAPIData[i] = apiDataElement
+            break
+          }
+          if (i === Object.values(merchantAPIData).length - 1) merchantAPIData[i + 1] = apiDataElement
+        }
+      })
+      setMerchantAPIData({ ...apiData, ...merchantAPIData })
+    }
+    else {
+      setMerchantAPIData({ ...merchantAPIData, ...apiData })
+    }
     setDataLastRefreshed(DateTime.now())
   }, [apiData])
 
@@ -212,6 +231,20 @@ const Merchants: NextPage = (props) => {
   useEffect(() => {
     if (currDate.minute < 30 || currDate.minute >= 55) setMerchantAPIData({})
   }, [currDate.minute])
+
+  const event1 = () => setAPIData({ "0": { "_id": "0", "region": "", "server": "azena", "location": "Seaswept Woods", "item": "No Good Items", "name": "Oliver" }, "1": { "_id": "1", "region": "", "server": "azena", "location": "Lake Eternity", "item": "Legendary Rapport Item", "name": "Jeffrey" }, "2": { "_id": "2", "region": "", "server": "azena", "location": "Lake Eternity", "item": "Sian Card][Legendary Rapport Item", "name": "Jeffrey" }, "3": { "_id": "3", "region": "", "server": "azena", "location": "Scraplands", "item": "Legendary Rapport Item", "name": "Nox" }, "4": { "_id": "4", "region": "", "server": "azena", "location": "Medrick Monastery", "item": "No Good Items", "name": "Malone" }, "5": { "_id": "5", "region": "", "server": "azena", "location": "Sunbright Hill", "item": "No Good Items", "name": "Morris" } })
+  const event2 = () => setAPIData({ "0": { "_id": "6", "region": "", "server": "azena", "location": "Lake Eternity", "item": "Sian Card][Legendary Rapport Item", "name": "Jeffrey" } })
+  const event3 = () => setAPIData({ "0": { "_id": "7", "region": "", "server": "azena", "location": "Saland Hill", "item": "No Good Items", "name": "Lucas" } })
+  const event4 = () => setAPIData({ "0": { "_id": "8", "region": "", "server": "azena", "location": "Rattan Hill", "item": "Legendary Rapport Item", "name": "Mac" }, "1": { "_id": "100", "region": "", "server": "azena", "location": "Rattan Hill", "item": "Legendary Rapport Item", "name": "Mac" } })
+  const event5 = () => setAPIData({ "0": { "_id": "9", "region": "", "server": "azena", "location": "Starsand Beach", "item": "No Good Items", "name": "Rayni" } })
+  const event6 = () => setAPIData({ "0": { "_id": "10", "region": "", "server": "azena", "location": "Secret Forest", "item": "No Good Items", "name": "Rayni" } })
+  const event7 = () => setAPIData({ "0": { "_id": "11", "region": "", "server": "azena", "location": "Kalaja", "item": "No Good Items", "name": "Dorella" } })
+  const event8 = () => setAPIData({ "0": { "_id": "12", "region": "", "server": "azena", "location": "Xeneela Ruins", "item": "No Good Items", "name": "Aricer" } })
+  const event9 = () => setAPIData({ "0": { "_id": "13", "region": "", "server": "azena", "location": "Croconys Seashore South", "item": "Seria Card", "name": "Burt" } })
+  const event10 = () => setAPIData({ "0": { "_id": "10", "region": "", "server": "azena", "location": "Secret Forest", "item": "No Good Items", "name": "Rayni" } })
+  const eventEX = () => setAPIData({ "0": { "_id": "101", "region": "", "server": "azena", "location": "Lake Eternity", "item": "Sian Card][Madnick Card][Legendary Rapport Item", "name": "Jeffrey" } })
+  const clearMerchant = () => setMerchantAPIData({})
+
   return (
     <>
       <Head>
@@ -472,6 +505,55 @@ const Merchants: NextPage = (props) => {
                   </div>
                 </td>
               </tr>
+              <div id="merchantDebug" className='my-4 justify-center text-center bg-base-300'>
+                <div className='w-full'>
+                  <span className='text-base-500'>DEBUG (USING {useNewInsertMethod ? "NEW" : "ORIGINAL"} INSERT METHOD)</span>
+                </div>
+                <div className='w-full flex p-2 px-2'>
+                  <div className="w-full flex">
+                    <div className="px-4">
+                      <div className="tooltip tooltip-info" data-tip="Loads Oliver, Jeffrey, Nox, Malone, Morris">
+                        <button className="btn" onClick={event1}>Initial Load</button>
+                      </div>
+                      <div className="tooltip tooltip-info" data-tip="Jeffrey correction">
+                        <button className="btn" onClick={event2}>E02</button>
+                      </div>
+                      <div className="tooltip tooltip-info" data-tip="Lucas">
+                        <button className="btn" onClick={event3}>E03</button>
+                      </div>
+                      <div className="tooltip tooltip-info" data-tip="Mac x2">
+                        <button className="btn" onClick={event4}>E04</button>
+                      </div>
+                      <div className="tooltip tooltip-info" data-tip="Rayni (Starsand)">
+                        <button className="btn" onClick={event5}>E05</button>
+                      </div>
+                      <div className="tooltip tooltip-info" data-tip="Rayni (Secret), correction">
+                        <button className="btn" onClick={event6}>E06</button>
+                      </div>
+                      <div className="tooltip tooltip-info" data-tip="Dorella">
+                        <button className="btn" onClick={event7}>E07</button>
+                      </div>
+                      <div className="tooltip tooltip-info" data-tip="Rayni (Secret), resend">
+                        <button className="btn" onClick={event10}>E08</button>
+                      </div>
+                      <div className="tooltip tooltip-info" data-tip="Aricer">
+                        <button className="btn" onClick={event8}>E09</button>
+                      </div>
+                      <div className="tooltip tooltip-info" data-tip="Burt">
+                        <button className="btn" onClick={event9}>E10</button>
+                      </div>
+                      <div className="tooltip tooltip-info" data-tip="Jeffrey with Sien, Madnick AND a legendary rapport">
+                        <button className='btn' onClick={eventEX}>Impossible JEFF</button>
+                      </div>
+                    </div>
+                    <span className='flex-grow' />
+                    <div>
+                      <button className="btn btn-warning" onClick={toggleInsertMethod}>TOGGLE METHOD</button>
+                      <button className="btn btn-error" onClick={clearMerchant}>CLEAR DATA</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <tr className="flex flex-row">
                 <td className="w-full bg-stone-400 dark:bg-base-200">
                   <table className="w-full">
