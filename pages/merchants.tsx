@@ -15,6 +15,9 @@ import Image from 'next/image'
 import { RegionTimeZoneMapping } from '../util/static'
 import { IconSettings } from '@tabler/icons'
 import { MerchantConfigModal } from '../components'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useTranslation } from 'next-i18next'
+import classNames from 'classnames'
 
 interface Merchant {
   location: string
@@ -603,22 +606,19 @@ const Merchants: NextPage = (props) => {
       </div>
     </>
   )
+}
 
-  import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-  import { useTranslation } from 'next-i18next'
-  import classNames from 'classnames'
-
-  export async function getStaticProps({ locale }: { locale: string }) {
-    return {
-      props: {
-        ...(await serverSideTranslations(locale, [
-          'merchants',
-          'common',
-          'merchantConfig',
-        ])),
-        // Will be passed to the page component as props
-      },
-    }
+export async function getStaticProps({ locale }: { locale: string }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, [
+        'merchants',
+        'common',
+        'merchantConfig',
+      ])),
+      // Will be passed to the page component as props
+    },
   }
+}
 
-  export default Merchants
+export default Merchants
