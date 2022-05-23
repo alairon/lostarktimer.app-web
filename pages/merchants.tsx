@@ -232,17 +232,29 @@ const Merchants: NextPage = (props) => {
     if (currDate.minute < 30 || currDate.minute >= 55) setMerchantAPIData({})
   }, [currDate.minute])
 
-  const event1 = () => setAPIData({ "0": { "_id": "0", "region": "", "server": "azena", "location": "Seaswept Woods", "item": "No Good Items", "name": "Oliver" }, "1": { "_id": "1", "region": "", "server": "azena", "location": "Lake Eternity", "item": "Legendary Rapport Item", "name": "Jeffrey" }, "2": { "_id": "2", "region": "", "server": "azena", "location": "Lake Eternity", "item": "Sian Card][Legendary Rapport Item", "name": "Jeffrey" }, "3": { "_id": "3", "region": "", "server": "azena", "location": "Scraplands", "item": "Legendary Rapport Item", "name": "Nox" }, "4": { "_id": "4", "region": "", "server": "azena", "location": "Medrick Monastery", "item": "No Good Items", "name": "Malone" }, "5": { "_id": "5", "region": "", "server": "azena", "location": "Sunbright Hill", "item": "No Good Items", "name": "Morris" } })
-  const event2 = () => setAPIData({ "0": { "_id": "6", "region": "", "server": "azena", "location": "Lake Eternity", "item": "Sian Card][Legendary Rapport Item", "name": "Jeffrey" } })
-  const event3 = () => setAPIData({ "0": { "_id": "7", "region": "", "server": "azena", "location": "Saland Hill", "item": "No Good Items", "name": "Lucas" } })
-  const event4 = () => setAPIData({ "0": { "_id": "8", "region": "", "server": "azena", "location": "Rattan Hill", "item": "Legendary Rapport Item", "name": "Mac" }, "1": { "_id": "100", "region": "", "server": "azena", "location": "Rattan Hill", "item": "Legendary Rapport Item", "name": "Mac" } })
-  const event5 = () => setAPIData({ "0": { "_id": "9", "region": "", "server": "azena", "location": "Starsand Beach", "item": "No Good Items", "name": "Rayni" } })
-  const event6 = () => setAPIData({ "0": { "_id": "10", "region": "", "server": "azena", "location": "Secret Forest", "item": "No Good Items", "name": "Rayni" } })
-  const event7 = () => setAPIData({ "0": { "_id": "11", "region": "", "server": "azena", "location": "Kalaja", "item": "No Good Items", "name": "Dorella" } })
-  const event8 = () => setAPIData({ "0": { "_id": "12", "region": "", "server": "azena", "location": "Xeneela Ruins", "item": "No Good Items", "name": "Aricer" } })
-  const event9 = () => setAPIData({ "0": { "_id": "13", "region": "", "server": "azena", "location": "Croconys Seashore South", "item": "Seria Card", "name": "Burt" } })
-  const event10 = () => setAPIData({ "0": { "_id": "10", "region": "", "server": "azena", "location": "Secret Forest", "item": "No Good Items", "name": "Rayni" } })
-  const eventEX = () => setAPIData({ "0": { "_id": "101", "region": "", "server": "azena", "location": "Lake Eternity", "item": "Sian Card][Madnick Card][Legendary Rapport Item", "name": "Jeffrey" } })
+  // We tell TS to ignore these errors because that's how it arrives from the WebSocket
+  // @ts-ignore
+  const event1 = () => setAPIData([{ "_id": "0", "region": "", "server": "azena", "location": "Seaswept Woods", "item": "No Good Items", "name": "Oliver" }, { "_id": "1", "region": "", "server": "azena", "location": "Lake Eternity", "item": "Legendary Rapport Item", "name": "Jeffrey" }, { "_id": "2", "region": "", "server": "azena", "location": "Lake Eternity", "item": "Sian Card][Legendary Rapport Item", "name": "Jeffrey" }, { "_id": "3", "region": "", "server": "azena", "location": "Scraplands", "item": "Legendary Rapport Item", "name": "Nox" }, { "_id": "4", "region": "", "server": "azena", "location": "Medrick Monastery", "item": "No Good Items", "name": "Malone" }, { "_id": "5", "region": "", "server": "azena", "location": "Sunbright Hill", "item": "No Good Items", "name": "Morris" }])
+  // @ts-ignore
+  const event2 = () => setAPIData([{ "_id": "6", "region": "", "server": "azena", "location": "Lake Eternity", "item": "Sian Card][Legendary Rapport Item", "name": "Jeffrey" }])
+  // @ts-ignore
+  const event3 = () => setAPIData([{ "_id": "7", "region": "", "server": "azena", "location": "Saland Hill", "item": "No Good Items", "name": "Lucas" }])
+  // @ts-ignore
+  const event4 = () => setAPIData([{ "_id": "8", "region": "", "server": "azena", "location": "Rattan Hill", "item": "Legendary Rapport Item", "name": "Mac" }, { "_id": "100", "region": "", "server": "azena", "location": "Rattan Hill", "item": "Legendary Rapport Item", "name": "Mac" }])
+  // @ts-ignore
+  const event5 = () => setAPIData([{ "_id": "9", "region": "", "server": "azena", "location": "Starsand Beach", "item": "No Good Items", "name": "Rayni" }])
+  // @ts-ignore
+  const event6 = () => setAPIData([{ "_id": "10", "region": "", "server": "azena", "location": "Secret Forest", "item": "No Good Items", "name": "Rayni" }])
+  // @ts-ignore
+  const event7 = () => setAPIData([{ "_id": "11", "region": "", "server": "azena", "location": "Kalaja", "item": "No Good Items", "name": "Dorella" }])
+  // @ts-ignore
+  const event8 = () => setAPIData([{ "_id": "12", "region": "", "server": "azena", "location": "Xeneela Ruins", "item": "No Good Items", "name": "Aricer" }])
+  // @ts-ignore
+  const event9 = () => setAPIData([{ "_id": "13", "region": "", "server": "azena", "location": "Croconys Seashore South", "item": "Seria Card", "name": "Burt" }])
+  // @ts-ignore
+  const event10 = () => setAPIData([{ "_id": "10", "region": "", "server": "azena", "location": "Secret Forest", "item": "No Good Items", "name": "Rayni" }])
+  // @ts-ignore
+  const eventEX = () => setAPIData([{ "_id": "101", "region": "", "server": "azena", "location": "Lake Eternity", "item": "Sian Card][Madnick Card][Legendary Rapport Item", "name": "Jeffrey" }])
   const clearMerchant = () => setMerchantAPIData({})
 
   return (
@@ -505,9 +517,11 @@ const Merchants: NextPage = (props) => {
                   </div>
                 </td>
               </tr>
-              <div id="merchantDebug" className='my-4 justify-center text-center bg-base-300'>
+              <div id="merchantDebug" className='p-4 justify-center text-center bg-base-300'>
                 <div className='w-full'>
-                  <span className='text-base-500'>DEBUG (USING {useNewInsertMethod ? "NEW" : "ORIGINAL"} INSERT METHOD)</span>
+                  <span className='text-base-500'>REPLICATE WEBSOCKET ENTRIES (USING {useNewInsertMethod ? "NEW" : "ORIGINAL"} INSERT METHOD)</span>
+                  <br/>
+                  <span>Based on US East Azena, 2022-05-21 from 17:33 to 17:55</span>
                 </div>
                 <div className='w-full flex p-2 px-2'>
                   <div className="w-full flex">
