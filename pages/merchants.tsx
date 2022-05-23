@@ -32,23 +32,36 @@ const Merchants: NextPage = (props) => {
     'merchantServer',
     'Shandi'
   )
-  const isMounted = useRef(false);
+  const isMounted = useRef(false)
   const defaultTheme = () => {
     // Defaults to system theme if unconfigured
-    return (localStorage.getItem('darkMode') || window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    return (
+      localStorage.getItem('darkMode') ||
+      window.matchMedia &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches
+    )
   }
-  const [darkMode, setDarkMode] = useLocalStorage<boolean>('darkMode', defaultTheme)
+  const [darkMode, setDarkMode] = useLocalStorage<boolean>(
+    'darkMode',
+    defaultTheme
+  )
   useEffect(() => {
     //Prevents FoUC (Flash of Unstylized Content) by not refreshing on first mount
-    if (!isMounted.current) { isMounted.current = true; return }
+    if (!isMounted.current) {
+      isMounted.current = true
+      return
+    }
 
     //Toggle Daisy UI colors (e.g. bg-base-###)
-    document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light')
+    document.documentElement.setAttribute(
+      'data-theme',
+      darkMode ? 'dark' : 'light'
+    )
 
     //Toggle standard Tailwind colors (e.g. bg-sky-800)
     darkMode
-      ? document.documentElement.classList.add("dark")
-      : document.documentElement.classList.remove("dark")
+      ? document.documentElement.classList.add('dark')
+      : document.documentElement.classList.remove('dark')
   }, [darkMode])
 
   const [currDate, setCurrDate] = useState<DateTime>(DateTime.now())
@@ -230,11 +243,6 @@ const Merchants: NextPage = (props) => {
     mSchedules,
     mActive
   ])
-  useEffect(() => {
-<<<<<<< HEAD
-    if (currDate.minute < 30 || currDate.minute >= 55) setMerchantAPIData({})
-  }, [currDate.minute])
-
   // We tell TS to ignore these errors because that's how it arrives from the WebSocket
   // @ts-ignore
   const event1 = () => setAPIData([{ "_id": "0", "region": "", "server": "azena", "location": "Seaswept Woods", "item": "No Good Items", "name": "Oliver" }, { "_id": "1", "region": "", "server": "azena", "location": "Lake Eternity", "item": "Legendary Rapport Item", "name": "Jeffrey" }, { "_id": "2", "region": "", "server": "azena", "location": "Lake Eternity", "item": "Sian Card][Legendary Rapport Item", "name": "Jeffrey" }, { "_id": "3", "region": "", "server": "azena", "location": "Scraplands", "item": "Legendary Rapport Item", "name": "Nox" }, { "_id": "4", "region": "", "server": "azena", "location": "Medrick Monastery", "item": "No Good Items", "name": "Malone" }, { "_id": "5", "region": "", "server": "azena", "location": "Sunbright Hill", "item": "No Good Items", "name": "Morris" }])
@@ -260,7 +268,7 @@ const Merchants: NextPage = (props) => {
   const eventEX = () => setAPIData([{ "_id": "101", "region": "", "server": "azena", "location": "Lake Eternity", "item": "Sian Card][Madnick Card][Legendary Rapport Item", "name": "Jeffrey" }])
   const clearMerchant = () => setMerchantAPIData({})
 
-=======
+  useEffect(() => {
     // Changed to serverTime to prevent mActive from triggering early for time zones using 30 or 45 minute offsets
     if (serverTime.minute < 30 || serverTime.minute >= 55) {
       setMerchantAPIData({})
@@ -268,7 +276,6 @@ const Merchants: NextPage = (props) => {
     }
     else { setMActive(true) }
   }, [serverTime.minute])
->>>>>>> selectedDate-fix
   return (
     <>
       <Head>
@@ -532,7 +539,7 @@ const Merchants: NextPage = (props) => {
               <div id="merchantDebug" className='p-4 justify-center text-center bg-base-300'>
                 <div className='w-full'>
                   <span className='text-base-500'>REPLICATE WEBSOCKET ENTRIES (USING {useNewInsertMethod ? "NEW" : "ORIGINAL"} INSERT METHOD)</span>
-                  <br/>
+                  <br />
                   <span>Based on US East Azena, 2022-05-21 from 17:33 to 17:55</span>
                 </div>
                 <div className='w-full flex p-2 px-2'>
@@ -596,23 +603,22 @@ const Merchants: NextPage = (props) => {
       </div>
     </>
   )
-}
 
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useTranslation } from 'next-i18next'
-import classNames from 'classnames'
+  import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+  import { useTranslation } from 'next-i18next'
+  import classNames from 'classnames'
 
-export async function getStaticProps({ locale }: { locale: string }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, [
-        'merchants',
-        'common',
-        'merchantConfig',
-      ])),
-      // Will be passed to the page component as props
-    },
+  export async function getStaticProps({ locale }: { locale: string }) {
+    return {
+      props: {
+        ...(await serverSideTranslations(locale, [
+          'merchants',
+          'common',
+          'merchantConfig',
+        ])),
+        // Will be passed to the page component as props
+      },
+    }
   }
-}
 
-export default Merchants
+  export default Merchants
