@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import merchantSchedules from '../data/merchantSchedules.json'
 import saintbotImage from '../public/images/saint-bot.png'
 import { DateTime, Interval } from 'luxon'
@@ -32,6 +32,7 @@ const Merchants: NextPage = (props) => {
     'merchantServer',
     'Shandi'
   )
+
   const [currDate, setCurrDate] = useState<DateTime>(DateTime.now())
   const [regionTZ, setRegionTZ] = useLocalStorage<string>('regionTZ', 'UTC-7')
 
@@ -216,7 +217,7 @@ const Merchants: NextPage = (props) => {
           >
             <IconSettings className="transition ease-in-out hover:-translate-y-px hover:rotate-45" />
           </label>
-          <div className="flex grow"/>
+          <div className="flex grow" />
           <div className="w-40 flex-col mr-4 my-auto">
             <select
               className="select select-bordered select-sm w-full"
