@@ -32,7 +32,7 @@ const Merchants: NextPage = (props) => {
     'merchantServer',
     'Shandi'
   )
-  
+
   const [currDate, setCurrDate] = useState<DateTime>(DateTime.now())
   const [regionTZ, setRegionTZ] = useLocalStorage<string>('regionTZ', 'UTC-7')
 
@@ -217,7 +217,7 @@ const Merchants: NextPage = (props) => {
           >
             <IconSettings className="transition ease-in-out hover:-translate-y-px hover:rotate-45" />
           </label>
-          <div className="flex grow"/>
+          <div className="flex grow" />
           <div className="w-40 flex-col mr-4 my-auto">
             <select
               className="select select-bordered select-sm w-full"
