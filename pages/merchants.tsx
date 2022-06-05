@@ -32,6 +32,7 @@ const Merchants: NextPage = (props) => {
     'merchantServer',
     'Shandi'
   )
+  
   const [currDate, setCurrDate] = useState<DateTime>(DateTime.now())
   const [regionTZ, setRegionTZ] = useLocalStorage<string>('regionTZ', 'UTC-7')
 
