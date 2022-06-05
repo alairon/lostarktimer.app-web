@@ -48,6 +48,7 @@ const Merchants: NextPage = (props) => {
     false
   )
   const [mSchedules, setMSchedules] = useState<{ [k: string]: Interval[] }>({})
+  const [mActive, setMActive] = useState(false)
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -56,7 +57,7 @@ const Merchants: NextPage = (props) => {
       setServerTime(now.setZone(regionTZ))
     }, 1000)
     return () => {
-      clearInterval(timer) // Return a funtion to clear the timer so that it will stop being called on unmount
+      clearInterval(timer) // Return a function to clear the timer so that it will stop being called on unmount
     }
   }, [regionTZName, regionTZ])
 
@@ -94,7 +95,17 @@ const Merchants: NextPage = (props) => {
   }, [])
 
   useEffect(() => {
-    setMerchantAPIData({ ...merchantAPIData, ...apiData })
+    //Logic: For each apiData entry, overwrite collisions or create a new entry if it doesn't exist
+    Object.values(apiData).forEach((apiDataElement) => {
+      for (let i = 0; i < Object.values(merchantAPIData).length; i++) {
+        if (merchantAPIData[i].name === apiDataElement.name) {
+          merchantAPIData[i] = apiDataElement
+          break
+        }
+        if (i === Object.values(merchantAPIData).length - 1) merchantAPIData[i + 1] = apiDataElement
+      }
+    })
+    setMerchantAPIData({ ...apiData, ...merchantAPIData })
     setDataLastRefreshed(DateTime.now())
   }, [apiData])
 
@@ -190,10 +201,16 @@ const Merchants: NextPage = (props) => {
     wanderingMerchants,
     merchantAPIData,
     mSchedules,
+    mActive
   ])
   useEffect(() => {
-    if (currDate.minute < 30 || currDate.minute >= 55) setMerchantAPIData({})
-  }, [currDate.minute])
+    // Changed to serverTime to prevent mActive from triggering early for time zones using 30 or 45 minute offsets
+    if (serverTime.minute < 30 || serverTime.minute >= 55) {
+      setMerchantAPIData({})
+      setMActive(false)
+    }
+    else { setMActive(true) }
+  }, [serverTime.minute])
   return (
     <>
       <Head>
@@ -286,7 +303,7 @@ const Merchants: NextPage = (props) => {
           </table>
         </div>
 
-        <div className="mb-14 flex w-screen overflow-x-auto px-4 lg:px-20">
+        <div className="mb-14 flex w-full overflow-x-auto px-4 lg:px-20">
           <table className="table w-full">
             <thead>
               <tr className="relative justify-center text-center">
@@ -316,7 +333,7 @@ const Merchants: NextPage = (props) => {
                   </a>
                   <div className="absolute right-5 top-7">
                     {t('last-updated')}:{' '}
-                    {dataLastRefreshed.toLocaleString(
+                    {(viewLocalizedTime ? dataLastRefreshed : dataLastRefreshed.setZone(regionTZ)).toLocaleString(
                       view24HrTime
                         ? DateTime.TIME_24_WITH_SECONDS
                         : DateTime.TIME_WITH_SECONDS
