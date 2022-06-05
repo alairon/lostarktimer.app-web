@@ -32,6 +32,7 @@ const Merchants: NextPage = (props) => {
     'merchantServer',
     'Shandi'
   )
+
   const [currDate, setCurrDate] = useState<DateTime>(DateTime.now())
   const [regionTZ, setRegionTZ] = useLocalStorage<string>('regionTZ', 'UTC-7')
 
@@ -93,7 +94,17 @@ const Merchants: NextPage = (props) => {
   }, [])
 
   useEffect(() => {
-    setMerchantAPIData({ ...merchantAPIData, ...apiData })
+    //Logic: For each apiData entry, overwrite collisions or create a new entry if it doesn't exist
+    Object.values(apiData).forEach((apiDataElement) => {
+      for (let i = 0; i < Object.values(merchantAPIData).length; i++) {
+        if (merchantAPIData[i].name === apiDataElement.name) {
+          merchantAPIData[i] = apiDataElement
+          break
+        }
+        if (i === Object.values(merchantAPIData).length - 1) merchantAPIData[i + 1] = apiDataElement
+      }
+    })
+    setMerchantAPIData({ ...apiData, ...merchantAPIData })
     setDataLastRefreshed(DateTime.now())
   }, [apiData])
 
