@@ -15,6 +15,9 @@ jobs:
       - name: Configure date
         run: |
           echo "ACTION_DATE=$(date --rfc-3339=date)" >> ${GITHUB_ENV}
+      - name: Pull Remote Changes
+        run: |
+          git pull
       - name: Install npm packages
         run: |
           npm i
