@@ -57,7 +57,7 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
   return (
     <td
       key={`${gameEvent.uuid} td`}
-      className="dropdown m-2 flex basis-1/2 border-0 bg-stone-200/80 p-2 shadow-md hover:cursor-pointer  dark:bg-base-100 dark:hover:bg-base-100/70"
+      className="dropdown m-2 flex w-1/2 border-0 bg-stone-200/80 p-2 shadow-md hover:cursor-pointer  dark:bg-base-100 dark:hover:bg-base-100/70"
       tabIndex={0}
     >
       <div
@@ -72,9 +72,9 @@ const GameEventTableCell = (props: CellProps): React.ReactElement => {
             height={38}
           />
         </div>
-        <div className="basis-11/12 items-center font-sans text-xs font-semibold">
+        <div className="basis-11/12 items-center font-sans text-xs font-semibold truncate">
           <div className="ml-2 mr-4">
-            <span className="block uppercase ">
+            <span className="block uppercase truncate">
               {!(hideGrandPrix && gameEvent.groupName) &&
                 `[${gameEvent.gameEvent.minItemLevel}] `}
               {(hideGrandPrix && gameEvent.groupName) ||
