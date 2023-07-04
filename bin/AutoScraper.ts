@@ -68,10 +68,8 @@ export class AutoScraper {
   // If data was successfully formed, backs up the previous data file, then creates a new data file
   private static writeData(): void {
     if (Object.values(this.calendarData).length > 0) {
-      fs.rename('./data/data.json', './data/data.old.json', (err: Error) => {
-        if (err) console.error(err)
-        fs.writeFileSync('./data/data.json', JSON.stringify(this.calendarData), 'utf8')
-      })
+      fs.renameSync('./data/data.json', './data/data.old.json');
+      fs.writeFileSync('./data/data.json', JSON.stringify(this.calendarData), 'utf8');
     }
   }
 }
