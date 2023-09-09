@@ -1,5 +1,6 @@
 const fs = require('fs')
 const https = require('https')
+const EventChecker = require('./EventCompare');
 
 interface CalendarData {
   [type: string]: {
@@ -28,6 +29,7 @@ export class AutoScraper {
         this.extractCalendarData()
         this.cleanCalendarData()
         this.writeData()
+        EventChecker.compareData()
       })
     })
   }

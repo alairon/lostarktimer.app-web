@@ -24,7 +24,8 @@ jobs:
           npm i
       - name: Compile TS files
         run: |
-          npx tsc ./bin/AutoScraper.ts
+          npx tsc ./bin/AutoScraper.ts 
+          npx tsc ./bin/EventCompare.ts
       - name: Gather Event Data
         run: node ./bin/event-update.js
       - name: Commit changes to data
