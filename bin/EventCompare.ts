@@ -23,8 +23,8 @@ export class EventCompare {
     const diff = tempIds.filter(x => !webEventIds.includes(x));
     
     if (diff.length > 0){
-      core.debug(`${JSON.stringify(diff)} not found in the event data!`);
-      core.setFailed(`Missing values ${JSON.stringify(diff)} that are not found in the event data JSON.`);
+      core.debug(`${JSON.stringify(diff)} isn't in the event data JSON!`);
+      core.setFailed(`Found missing values ${JSON.stringify(diff)} that were not found in the event data JSON.`);
     }
     
     return(diff);
