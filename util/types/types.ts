@@ -22,9 +22,7 @@ export type RegionKey =
   | keyof typeof regions
   | 'US West'
   | 'US East'
-  | 'EU West'
   | 'EU Central'
-  | 'South America'
 
 export type ServerKey =
   | 'Mari'
@@ -85,3 +83,8 @@ export type ServerKey =
   | 'Vern'
   | 'Kurzan'
   | 'Prideholme'
+  | 'Luterra'
+  | 'Ortuus'
+  | 'Elpon'
+  | 'Ratik'
+  | 'Arcturus'
