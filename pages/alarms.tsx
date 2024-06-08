@@ -79,11 +79,11 @@ const Alarms: NextPage = () => {
   const [currDate, setCurrDate] = useState<DateTime>(DateTime.now())
   const [regionTZ, setRegionTZ] = useLocalStorage<string>(
     'regionTZ',
-    RegionTimeZoneMapping['US West']
+    RegionTimeZoneMapping['NA West']
   )
   const [regionTZName, setRegionTZName] = useLocalStorage<RegionKey>(
     'regionTZName',
-    'US West'
+    'NA West'
   )
   const isMounted = useRef(false)
   const defaultTheme = () => {

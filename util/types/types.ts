@@ -20,8 +20,8 @@ export interface MerchantAPIData {
 
 export type RegionKey =
   | keyof typeof regions
-  | 'US West'
-  | 'US East'
+  | 'NA West'
+  | 'NA East'
   | 'EU Central'
 
 export type ServerKey =

@@ -26,7 +26,7 @@ const Merchants: NextPage = (props) => {
   const { t } = useTranslation('merchants')
   const [regionTZName, setRegionTZName] = useLocalStorage<RegionKey>(
     'regionTZName',
-    'US West'
+    'NA West'
   )
   const [selectedServer, setSelectedServer] = useLocalStorage<ServerKey>(
     'merchantServer',
