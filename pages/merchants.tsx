@@ -30,7 +30,7 @@ const Merchants: NextPage = (props) => {
   )
   const [selectedServer, setSelectedServer] = useLocalStorage<ServerKey>(
     'merchantServer',
-    'Shandi'
+    'Thaemine'
   )
   const isMounted = useRef(false)
   const defaultTheme = () => {
