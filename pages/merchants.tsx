@@ -126,6 +126,18 @@ const Merchants: NextPage = (props) => {
   }, [])
 
   useEffect(() => {
+    //Migrates the default server post-merge
+    const regionTZNameItem: string = localStorage.getItem("regionTZName") || ""
+    const legacyServerRegex: RegExp = /US|EU West|South America/i
+    if (regionTZNameItem.search(legacyServerRegex) > -1){
+      console.log("Legacy server name found! Resetting to defaults")
+      setRegionTZName("NA West")
+      setRegionTZ(RegionTimeZoneMapping["NA West"])
+    }
+    
+  }, [])
+
+  useEffect(() => {
     //Logic: For each apiData entry, overwrite collisions or create a new entry if it doesn't exist
     Object.values(apiData).forEach((apiDataElement) => {
       for (let i = 0; i < Object.values(merchantAPIData).length; i++) {
@@ -523,6 +535,7 @@ const Merchants: NextPage = (props) => {
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
 import classNames from 'classnames'
+import Region from '../common/Region'
 
 export async function getStaticProps({ locale }: { locale: string }) {
   return {
