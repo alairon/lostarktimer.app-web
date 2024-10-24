@@ -32,4 +32,4 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with: 
           file_pattern: 'data/*.json'
-          commit_message: "Event data update: ${{env.ACTION_DATE}}"
+          commit_message: "data: event update ${{env.ACTION_DATE}}"
