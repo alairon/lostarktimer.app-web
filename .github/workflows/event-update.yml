@@ -3,8 +3,8 @@ run-name: Event Data Update
 on:
   workflow_dispatch:
   schedule:
-    # Run every Wednesday at 09:00 UTC (during weekly maintenance)
-    - cron: '0 9 * * 3'
+    # Run every Wednesday at 08:00 UTC (during weekly maintenance)
+    - cron: '0 8 * * 3'
 jobs:
   Update-Event-Data:
     runs-on: ubuntu-latest
@@ -12,22 +12,19 @@ jobs:
       contents: write
     steps: 
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-python@v5
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
       - name: Configure date
         run: |
           echo "ACTION_DATE=$(date --rfc-3339=date)" >> ${GITHUB_ENV}
       - name: Pull Remote Changes
         run: |
           git pull
-      - name: Install npm packages
-        run: |
-          npm i
-      - name: Compile TS files
-        run: |
-          npx tsc ./bin/AutoScraper.ts 
-          npx tsc ./bin/EventCompare.ts
-      - name: Gather Event Data
-        run: node ./bin/event-update.js
+      - run: |
+          python src/auto_scraper.py
       - name: Commit changes to data
         uses: stefanzweifel/git-auto-commit-action@v5
         with: 

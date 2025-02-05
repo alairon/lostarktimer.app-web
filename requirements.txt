@@ -1,0 +1,13 @@
+beautifulsoup4==4.12.3
+Brotli==1.0.9
+certifi==2024.8.30
+charset-normalizer==3.3.2
+fake-useragent==1.4.0
+idna==3.7
+pip==24.2
+PySocks==1.7.1
+requests==2.32.3
+setuptools==75.1.0
+soupsieve==2.5
+urllib3==2.2.3
+wheel==0.44.0
