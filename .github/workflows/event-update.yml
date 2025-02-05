@@ -27,10 +27,10 @@ jobs:
           git pull
       - run: |
           python src/auto_scraper.py
+      - name: Stage changed files
+        run: git add data/*.json public/locales/*/*.json
       - name: Commit changes to data
         uses: stefanzweifel/git-auto-commit-action@v5
         with: 
-          file_pattern: |
-            data/*.json
-            public/locales/*/*.json
           commit_message: "data: event update ${{env.ACTION_DATE}}"
+
