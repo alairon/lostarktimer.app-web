@@ -30,5 +30,7 @@ jobs:
       - name: Commit changes to data
         uses: stefanzweifel/git-auto-commit-action@v5
         with: 
-          file_pattern: '*.json'
+          file_pattern: |
+            data/*.json
+            public/locales/*/*.json
           commit_message: "data: event update ${{env.ACTION_DATE}}"
